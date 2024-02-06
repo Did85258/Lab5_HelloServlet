@@ -57,4 +57,31 @@ public class CustomerDAO {
 		}
 	}
 
+	public Customer getCustomerByName(String name) {
+		List<Customer> cusList = getAllCustomers();
+		for (Customer cus : cusList) {
+			if (cus.getName().equalsIgnoreCase(name)) {
+				return cus;
+			}
+		}
+		return null;
+	}
+
+	public int addCustomer(Customer cus) {
+		List<Customer> cusList = getAllCustomers();
+		boolean cusExists = false;
+		for (Customer c : cusList) {
+			if (c.getName().equalsIgnoreCase(cus.getName())) {
+				cusExists = true;
+				break;
+			}
+		}
+		if (!cusExists) {
+			cusList.add(cus);
+			saveCustomerList(cusList);
+			return 1;
+		}
+		return 0;
+	}
+
 }
